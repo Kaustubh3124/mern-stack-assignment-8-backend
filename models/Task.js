@@ -1,38 +1,33 @@
 const mongoose = require('mongoose');
 
-// Define the schema (structure) for a single To-Do task
 const TaskSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: [true, 'Title is required'], // 'title' is a mandatory field
-        trim: true, // Removes whitespace from both ends of a string
-        maxlength: [100, 'Title cannot be more than 100 characters'] // Max length validation
+        required: [true, 'Title is required'],
+        trim: true,
+        maxlength: [100, 'Title cannot exceed 100 characters']
     },
     description: {
         type: String,
         trim: true,
-        maxlength: [500, 'Description cannot be more than 500 characters'],
-        default: '' // Default to an empty string if not provided
+        maxlength: [500, 'Description cannot exceed 500 characters']
     },
     isCompleted: {
         type: Boolean,
-        default: false // New tasks are pending by default
+        default: false
     },
     priority: {
         type: String,
-        enum: ['Low', 'Medium', 'High'], // Only allows these specific values
+        enum: ['Low', 'Medium', 'High'],
         default: 'Medium'
     },
     dueDate: {
-        type: Date, // Stores date and time
-        default: null // Optional field, no default date
+        type: Date,
     }
 }, {
-    timestamps: true // Mongoose automatically adds `createdAt` and `updatedAt` fields
+    timestamps: true // Automatically adds createdAt and updatedAt
 });
 
-// Create and export the Mongoose model based on the schema
-// 'Task' will be the name of the collection in MongoDB (pluralized to 'tasks')
 const Task = mongoose.model('Task', TaskSchema);
 
 module.exports = Task;

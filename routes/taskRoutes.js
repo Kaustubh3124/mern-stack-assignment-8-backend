@@ -5,27 +5,23 @@ const {
     createTask,
     updateTask,
     deleteTask,
-    updateTaskStatus,
     searchTasks
 } = require('../controllers/taskController');
 
 const router = express.Router();
 
-// Base routes for getting all tasks and creating a new one
+// Main collection routes
 router.route('/')
     .get(getTasks)
     .post(createTask);
 
-// Search route
+// Search is a special GET route, so it comes before routes with /:id
 router.get('/search', searchTasks);
 
-// Routes for a specific task by ID
+// Routes for a single document by ID
 router.route('/:id')
     .get(getTask)
-    .patch(updateTask)
+    .patch(updateTask) // PATCH is used for partial updates
     .delete(deleteTask);
-
-// Route to update just the status of a task
-router.patch('/:id/status', updateTaskStatus);
 
 module.exports = router;
