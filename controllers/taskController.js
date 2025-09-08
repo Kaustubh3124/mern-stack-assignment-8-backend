@@ -1,6 +1,5 @@
 const Task = require('../models/Task');
 
-// Get all tasks with filtering, sorting, and pagination
 exports.getTasks = async (req, res) => {
     try {
         const { status, priority, sortBy = 'createdAt', order = 'asc', page = 1, limit = 10 } = req.query;
@@ -37,7 +36,6 @@ exports.getTasks = async (req, res) => {
     }
 };
 
-// Get a single task by its ID
 exports.getTask = async (req, res) => {
     try {
         const task = await Task.findById(req.params.id);
@@ -51,7 +49,6 @@ exports.getTask = async (req, res) => {
     }
 };
 
-// Create a new task
 exports.createTask = async (req, res) => {
     try {
         const task = await Task.create(req.body);
@@ -66,13 +63,11 @@ exports.createTask = async (req, res) => {
     }
 };
 
-// Update an existing task
 exports.updateTask = async (req, res) => {
     try {
-        // Find by ID and update in one atomic operation
         const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
-            new: true, // Return the updated document
-            runValidators: true // Ensure new data follows schema rules
+            new: true, 
+            runValidators: true 
         });
 
         if (!task) {
@@ -90,7 +85,6 @@ exports.updateTask = async (req, res) => {
     }
 };
 
-// Delete a task
 exports.deleteTask = async (req, res) => {
     try {
         const task = await Task.findByIdAndDelete(req.params.id);
@@ -106,7 +100,6 @@ exports.deleteTask = async (req, res) => {
     }
 };
 
-// Search for tasks by title or description
 exports.searchTasks = async (req, res) => {
     try {
         const { query } = req.query;

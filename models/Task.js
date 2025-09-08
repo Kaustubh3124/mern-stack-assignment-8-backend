@@ -25,7 +25,7 @@ const TaskSchema = new mongoose.Schema({
         type: Date,
     }
 }, {
-    timestamps: true // Automatically adds createdAt and updatedAt
+    timestamps: true 
 });
 
 const Task = mongoose.model('Task', TaskSchema);
